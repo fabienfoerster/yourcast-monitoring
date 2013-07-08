@@ -75,10 +75,10 @@ tar jxf collectd-5.3.0.tar.bz2
 cd collectd-5.3.0
 ```
 
-Now configure the sources with the usual:
+To configure the sources and enable java plugins run the following command :
 
 ```
-./configure
+./configure --with-java="path/to/your/jdk"
 ```
 
 After the configure script is done it will display a summary of the libraries it has found (and not found) and which plugins are enabled. Per default, all plugins whose dependencies are met are enabled. If a plugin you want to use is missing, install the required development package and run configure again.
