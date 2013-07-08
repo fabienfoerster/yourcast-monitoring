@@ -71,8 +71,8 @@ After installing the build dependencies, you need to get and unpack the sources:
 ```
 cd /tmp/
 wget http://collectd.org/files/collectd-5.3.0.tar.bz2
-tar jxf collectd-x.y.z.tar.bz2
-cd collectd-x.y.z
+tar jxf collectd-5.3.0.tar.bz2
+cd collectd-5.3.0
 ```
 
 Now configure the sources with the usual:
