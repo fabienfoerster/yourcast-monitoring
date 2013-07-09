@@ -56,10 +56,9 @@ sudo make install
 ```
 
 Finally execute this command as root to correct some weir bug : 
-*( change lib64 for lib if you are on a 32Bits machine)*
 ```
-sudo ln -sf /usr/local/lib/libmongoc.so.0.7 /lib64/
-sudo ln -sf /usr/local/lib/libbson.so.0.7 /lib64/
+sudo ln -sf /usr/local/lib/libmongoc.so.0.7 /lib/
+sudo ln -sf /usr/local/lib/libbson.so.0.7 /lib/
 ```
 
 **Warning** : if you want to install some new plugins after your first installation, you may have to rebuild the whole program.
