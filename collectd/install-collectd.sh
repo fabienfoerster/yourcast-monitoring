@@ -21,7 +21,7 @@ git clone https://github.com/mongodb/mongo-c-driver.git libmongoc > /dev/null 2>
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo "entering libmongoc ..."
-cd ligmongoc
+cd /tmp/ligmongoc
 
 echo -ne "checking v.0.7.1 version ..."
 git checkout v0.7.1 > /dev/null 2> /tmp/collectd.log
@@ -46,8 +46,6 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 echo "exiting libmongoc ..."
 cd ..
 
-echo "installing dependencies for write_mongo ...OK"
-
 
 #Get collectd and install it
 echo "installing collectd ..."
@@ -61,7 +59,7 @@ tar jxf collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo "entering collectd-x.y.z ..."
-cd collectd-5.3.0
+cd /tmp/collectd-5.3.0
 
 echo -ne "configuring collectd ..."
 ./configure > /dev/null 2> /tmp/collectd.log
@@ -71,6 +69,5 @@ echo -ne "installing collectd ..."
 make all install > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo "installing collectd ...OK"
 
 
