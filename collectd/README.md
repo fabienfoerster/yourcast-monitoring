@@ -4,16 +4,16 @@ In this folder you will find some scripts and some config files to install and c
 
 This configuration will enable the following plugins :
 
-  *cpu
-  *interface
-  *memory
-  *java
-  *genericjmx
-    *memory_pool
-    *loaded_classes
-    *garbage_collector
-    *memory-heap
-    *memory-nonheap
+  * cpu
+  * interface
+  * memory
+  * java
+  * genericjmx
+    * memory_pool
+    * loaded_classes
+    * garbage_collector
+    * memory-heap
+    * memory-nonheap
     
 ###Important
 
