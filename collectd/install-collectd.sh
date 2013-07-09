@@ -2,18 +2,15 @@
 
 echo "entering /tmp ..."
 cd /tmp 
-# Just to make sure you have the c-compiler linker and co
 
 echo -ne "installing build-essential ..."
 apt-get install build-essential > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
 
-## Plugin dependencies instalttion
 
 #Dependencies for the write_http plugin
 #apt-get install libcurl4-gnutls-dev librtmp-dev
 
-#Dependencies for the write_mongo plugin
 echo "installing dependencies for write_mongo ..."
 
 echo -ne "cloning mongoc project ..."
@@ -27,7 +24,7 @@ echo -ne "checking v.0.7.1 version ..."
 git checkout v0.7.1 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo -ne "compiling lib ..."
+echo -ne "compiling lib(can take a while) ..."
 make > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
@@ -47,7 +44,6 @@ echo "exiting libmongoc ..."
 cd ..
 
 
-#Get collectd and install it
 echo "installing collectd ..."
 
 echo -ne "fetching sources files from collectd.org ..."
@@ -61,15 +57,32 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 echo "entering collectd-x.y.z ..."
 cd collectd-5.3.0
 
-echo -ne "configuring collectd ..."
+echo -ne "configuring collectd(can take a while) ..."
 ./configure > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo -ne "installing collectd ..."
+echo -ne "installing collectd(can take a while) ..."
 make all install > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
+echo "exiting collectd-x.y.z"
 cd ..
 
+echo "configuring collectd ..."
+echo -ne "fetching collectd.conf ..."
+wget https://github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
+echo -ne "replacing collectd.conf ..."
+mv collectd.conf /opt/collectd/etc/collectd.conf
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
+echo -ne "fetching types.db.custom ..."
+wget https://github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/types.db.custom > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
+echo -ne "replacing types.db.custom ..."
+mv types.db.custom /opt/collectd/share/collectd/types.db.custom
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 
