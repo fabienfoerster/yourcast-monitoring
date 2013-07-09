@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo "entering /tmp ..."
+echo "entering /tmp"
 cd /tmp 
 
 echo -ne "installing build-essential ..."
 apt-get install build-essential > /dev/null 2> /tmp/collectd.log
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fifi
 
 
 #Dependencies for the write_http plugin
@@ -17,7 +17,7 @@ echo -ne "cloning mongoc project ..."
 git clone https://github.com/mongodb/mongo-c-driver.git libmongoc > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo "entering libmongoc ..."
+echo "entering libmongoc"
 cd libmongoc
 
 echo -ne "checking v.0.7.1 version ..."
@@ -40,7 +40,7 @@ echo -ne "create symbolic link for libbson in /lib/ ..."
 ln -sf /usr/local/lib/libbson.so.0.7 /lib/ > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo "exiting libmongoc ..."
+echo "exiting libmongoc"
 cd ..
 
 echo -ne "deleting libmongoc repo ..."
@@ -58,7 +58,7 @@ echo -ne "decompressing files ..."
 tar jxf collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
-echo "entering collectd-x.y.z ..."
+echo "entering collectd-x.y.z"
 cd collectd-5.3.0
 
 echo -ne "configuring collectd(can take a while) ..."
@@ -78,7 +78,7 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo "changing collectd configuration ..."
 echo -ne "fetching collectd.conf ..."
-wget https://raw.github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "replacing collectd.conf ..."
@@ -86,7 +86,7 @@ mv collectd.conf /opt/collectd/etc/collectd.conf
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "fetching types.db.custom ..."
-wget https://raw.github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/types.db.custom > /dev/null 2> /tmp/collectd.log
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/types.db.custom > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "replacing types.db.custom ..."
