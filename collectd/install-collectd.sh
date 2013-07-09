@@ -17,31 +17,31 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
 echo -ne "installing dependencies for write_mongo ..."
 
 echo -ne "cloning mongoc project ..."
-git clone https://github.com/mongodb/mongo-c-driver.git libmongoc
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+git clone https://github.com/mongodb/mongo-c-driver.git libmongoc > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "entering libmongoc ..."
 cd ligmongoc
 
 echo -ne "checking v.0.7.1 version ..."
-git checkout v0.7.1
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+git checkout v0.7.1 > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "compiling lib ..."
-make
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+make > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "installing lib ..."
-make install
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+make install > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "create symbolic link for libmongoc in /lib/ ..."
-ln -sf /usr/local/lib/libmongoc.so.0.7 /lib/
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+ln -sf /usr/local/lib/libmongoc.so.0.7 /lib/ > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "create symbolic link for libbson in /lib/ ..."
-ln -sf /usr/local/lib/libbson.so.0.7 /lib/
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+ln -sf /usr/local/lib/libbson.so.0.7 /lib/ > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "exiting libmongoc ..."
 cd ..
@@ -53,23 +53,24 @@ echo -ne "installing dependencies for write_mongo ...OK"
 echo -ne "installing collectd ..."
 
 echo -ne "fetching sources files from collectd.org ..."
-wget http://collectd.org/files/collectd-5.3.0.tar.bz2
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+wget http://collectd.org/files/collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "decompressing files ..."
-tar jxf collectd-5.3.0.tar.bz2
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+tar jxf collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "entering collectd-x.y.z ..."
 cd collectd-5.3.0
 
 echo -ne "configuring collectd ..."
-./configure
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+./configure > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "installing collectd ..."
-make all install
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE"; fi
+make all install > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
+echo -ne "installing collectd ...OK"
 
 
