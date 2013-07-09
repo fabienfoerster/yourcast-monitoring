@@ -5,7 +5,7 @@ cd /tmp
 
 echo -ne "installing build-essential ..."
 apt-get install build-essential > /dev/null 2> /tmp/collectd.log
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fifi
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 
 #Dependencies for the write_http plugin
