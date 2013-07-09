@@ -72,13 +72,13 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 echo "exiting collectd-x.y.z"
 cd ..
 
-echo -ne "deleting collectd-x.y.z"
+echo -ne "deleting collectd-x.y.z ..."
 rm -rf collectd-5.3.0
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo "changing collectd configuration ..."
 echo -ne "fetching collectd.conf ..."
-wget https://github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
+wget https://raw.github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "replacing collectd.conf ..."
@@ -86,7 +86,7 @@ mv collectd.conf /opt/collectd/etc/collectd.conf
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "fetching types.db.custom ..."
-wget https://github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/types.db.custom > /dev/null 2> /tmp/collectd.log
+wget https://raw.github.com/fabienfoerster/monitoring-collectd/blob/master/collectd/config/types.db.custom > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "replacing types.db.custom ..."
