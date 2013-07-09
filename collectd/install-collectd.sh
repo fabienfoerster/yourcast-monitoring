@@ -76,6 +76,10 @@ echo -ne "deleting collectd-x.y.z ..."
 rm -rf collectd-5.3.0
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
+echo -ne "deleting collectd-x.y.z.tar.bz2 ..."
+rm -rf collectd-5.3.0.tar.bz2
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
 echo "changing collectd configuration ..."
 echo -ne "fetching collectd.conf ..."
 wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd.conf > /dev/null 2> /tmp/collectd.log
