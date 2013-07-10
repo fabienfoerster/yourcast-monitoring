@@ -19,7 +19,7 @@ To be sure all goes well be sure that you have the follwing programs up and runn
   * jetty7
 
 
-#####Important : please read the README in each folder installation/configuration script require parameters
+#####Important : please read the README in each folder installation/configuration, script require parameters
 
 
 
