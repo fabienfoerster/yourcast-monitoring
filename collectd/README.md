@@ -19,7 +19,7 @@ This configuration will enable the following plugins :
 
 For a successful installation you will have to run the script install-collectd.sh as root .
 
-The installation script require the path to your jdk 
+The installation script require the path to your jdk :
 
 ```
 ./install-collectd.sh $JAVA_HOME
@@ -31,6 +31,12 @@ After installation to run collectd execute the command :
 
 ```
 /opt/collectd/sbin/collectd
+```
+
+#####Note : if you want to test if your installation is good you can run the command :
+
+```
+/opt/collectd/sbin/collectd -T
 ```
 
 #####Note : this installation run with jdk1.6.0_45
