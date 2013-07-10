@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#$1 should be the path to your jdk
+
 echo "entering /tmp"
 cd /tmp 
 
@@ -62,7 +64,7 @@ echo "entering collectd-x.y.z"
 cd collectd-5.3.0
 
 echo -ne "configuring collectd(can take a while) ..."
-./configure --with-java="$JAVA_HOME" > /dev/null 2> /tmp/collectd.log
+./configure --with-java="$1" > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
 
 echo -ne "installing collectd(can take a while) ..."
