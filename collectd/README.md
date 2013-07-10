@@ -19,6 +19,12 @@ This configuration will enable the following plugins :
 
 For a successful installation you will have to run the script install-collectd.sh as root .
 
+The installation script require the path to your jdk 
+
+```
+./install-collectd.sh $JAVA_HOME
+```
+
 Also to monitor jetty7 with collectd you will have to configure jetty properly. For that matter please see the jetty folder .
 
 After installation to run collectd execute the command :
