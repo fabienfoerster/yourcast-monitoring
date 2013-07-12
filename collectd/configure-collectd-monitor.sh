@@ -45,7 +45,10 @@ if [ -z "$server_port" ]; then
     usage
     exit 1
 fi
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-server.conf
 
-sed -i "s/{{server_name}}/$server_name/" collectd.conf
-sed -i "s/{{server_port}}/$server_port/" collectd.conf
+sed -i "s/{{server_name}}/$server_name/" collectd-server.conf
+sed -i "s/{{server_port}}/$server_port/" collectd-server.conf
+
+mv collectd-server.conf /opt/collectd/etc/collectd.conf
 

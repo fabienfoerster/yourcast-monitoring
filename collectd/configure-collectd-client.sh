@@ -11,7 +11,7 @@ usage() {
     echo "usage: $0 -s server_name -p server_port -i interval"
     echo "-s server_name : the name of the server you want to send the collected data"
     echo "-p server_port : the port of the server you want to send the collected data"
-    echo "-p interval : the frequency you want to collect the data"
+    echo "-i interval : the frequency you want to collect the data"
 }
 
 server_name=""
@@ -54,8 +54,10 @@ if [ -z "$interval" ]; then
     usage
     exit 1
 fi
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-client.conf
+sed -i "s/{{server_name}}/$server_name/" collectd-client.conf
+sed -i "s/{{server_port}}/$server_port/" collectd-client.conf
+sed -i "s/{{interval}}/$interval/" collectd-client.conf
 
-sed -i "s/{{server_name}}/$server_name/" collectd.conf
-sed -i "s/{{server_port}}/$server_port/" collectd.conf
-sed -i "s/{{interval}}/$interval/" collectd.conf 
+mv collectd-client.conf /opt/collectd/etc/collectd.conf
 
