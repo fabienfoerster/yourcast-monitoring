@@ -57,7 +57,7 @@ fi
 
 echo -ne "fetching configure file ..."
 wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-client.conf > /dev/null 2> /tmp/collectd.log
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo "modifing configure values"
 
@@ -67,5 +67,5 @@ sed -i "s/{{interval}}/$interval/" collectd-client.conf
 
 echo -ne "replacing configure file ..."
 mv collectd-client.conf /opt/collectd/etc/collectd.conf
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
