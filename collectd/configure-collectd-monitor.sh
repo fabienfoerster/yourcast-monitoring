@@ -45,10 +45,18 @@ if [ -z "$server_port" ]; then
     usage
     exit 1
 fi
-wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-server.conf
 
+echo -ne "fetching configure file ..."
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-server.conf > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
+
+echo "modifing configure values"
 sed -i "s/{{server_name}}/$server_name/" collectd-server.conf
 sed -i "s/{{server_port}}/$server_port/" collectd-server.conf
 
+echo -ne "replacing configure file ..."
 mv collectd-server.conf /opt/collectd/etc/collectd.conf
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log; fi
+
 
