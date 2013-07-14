@@ -40,12 +40,12 @@ echo "entering /tmp"
 cd /tmp	
 
 echo -ne "fetching jetty-jmx.xml ..."
-wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/jetty/config/jetty-jmx.xml > /dev/null 2> /tmp/jetty.log
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/jetty/config/jetty-jmx.xml > /dev/null 2> /dev/null
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/jetty.log;exit 1; fi
 
 echo -ne "replacing jetty-jmx.xml ..."
 mv jetty-jmx.xml "$path_to_jetty/etc/jetty-jmx.xml"
-if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/jetty.log;exit 1; fi
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";exit 1; fi
 
 echo "Done"
 echo "For error see above."

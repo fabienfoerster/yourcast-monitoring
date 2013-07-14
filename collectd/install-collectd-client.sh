@@ -42,7 +42,11 @@ cd /tmp
 
 echo -ne "installing build-essential ..."
 apt-get install build-essential > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK";
+else
+yum groupinstall “Development Tools”
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+fi
 
 
 #Dependencies for the write_http plugin
