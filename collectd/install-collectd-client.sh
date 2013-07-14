@@ -40,11 +40,11 @@ fi
 echo "entering /tmp"
 cd /tmp 
 
-echo -ne "installing build-essential ..."
+echo -ne "installing gcc and co ..."
 apt-get install build-essential > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK";
 else
-yum groupinstall “Development Tools”
+yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 fi
 
