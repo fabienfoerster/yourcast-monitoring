@@ -8,14 +8,24 @@ fi
 
 
 usage() {
-    echo "usage: $0 -j jdk_directory "
+    echo "usage: $0 -j jdk_directory -s server_name -p server_port -i interval"
+    echo "-j jdk_directory : the path to your jdk"
+    echo "-s server_name : the name of the server you want to send the collected data"
+    echo "-p server_port : the port of the server you want to send the collected data"
+    echo "-i interval : the frequency you want to collect the data"
 }
 
 dir_jdk=""
+server_name=""
+server_port=""
+interval=""
 
-while getopts ":hj:" option; do
+while getopts ":hj:s:p:i:" option; do
     case "$option" in 
         j) dir_jdk="$OPTARG" ;;
+        s) server_name="$OPTARG" ;;
+        p) server_port="$OPTARG" ;;
+        i) interval="$OPTARG" ;;
         :)  echo "Error: -$OPTARG requires an argument" 
             usage
             exit 1            
@@ -32,6 +42,24 @@ done
 
 if [ ! -d "$dir_jdk" ]; then
     echo "Error : the jdk_directory argument must be a directory"
+    usage
+    exit 1
+fi
+
+if [ -z "$server_name" ]; then
+    echo "Error : the server_name argument must be specify"
+    usage
+    exit 1
+fi
+
+if [ -z "$server_port" ]; then
+    echo "Error : the server_port argument must be specify"
+    usage
+    exit 1
+fi
+
+if ! [[ "$interval" =~ ^[0-9]+$ ]] ; then
+    echo "Error : the interval must be a number"
     usage
     exit 1
 fi
@@ -92,4 +120,40 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exi
 echo -ne "replacing types.db.custom ..."
 mv types.db.custom /opt/collectd/share/collectd/types.db.custom
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -ne "fetching configuration file ..."
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd-client.conf > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo "modifing configure values ... "
+
+sed -i "s/{{server_name}}/$server_name/" collectd-client.conf
+sed -i "s/{{server_port}}/$server_port/" collectd-client.conf
+sed -i "s/{{interval}}/$interval/" collectd-client.conf
+
+echo -ne "replacing configure file ... "
+mv collectd-client.conf /opt/collectd/etc/collectd.conf
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -n "fetching service script ... "
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/collectd > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -n "becoming executable ... "
+chmod +x collectd
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -n "moving service script to /etc/init.d ... "
+mv collectd /etc/init.d > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -n "adding script to boot sequence ... "
+update-rc.d collectd defaults > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -n "starting collectd ..."
+/opt/collectd/sbin/collectd > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo "Done"
 
