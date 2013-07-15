@@ -140,7 +140,7 @@ wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/c
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "becoming executable ... "
-chmod +x collectd
+chmod +x collectd > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "moving service script to /etc/init.d ... "

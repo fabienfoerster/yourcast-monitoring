@@ -132,11 +132,11 @@ echo "exiting collectd-x.y.z"
 cd ..
 
 echo -ne "deleting collectd-x.y.z ..."
-rm -rf collectd-5.3.0
+rm -rf collectd-5.3.0 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "deleting collectd-x.y.z.tar.bz2 ..."
-rm -rf collectd-5.3.0.tar.bz2
+rm -rf collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "fetching types.db.custom ..."
@@ -144,7 +144,7 @@ wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/c
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "replacing types.db.custom ..."
-mv types.db.custom /opt/collectd/share/collectd/types.db.custom
+mv types.db.custom /opt/collectd/share/collectd/types.db.custom > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "fetching configuration file ..."
@@ -153,11 +153,11 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exi
 
 echo "modifing configure values ... "
 
-sed -i "s/{{server_name}}/$server_name/" collectd-client.conf
+sed -i "s/{{server_name}}/$server_name/" collectd-client.conf 
 sed -i "s/{{server_port}}/$server_port/" collectd-client.conf
 
 echo -ne "replacing configure file ... "
-mv collectd-server.conf /opt/collectd/etc/collectd.conf
+mv collectd-server.conf /opt/collectd/etc/collectd.conf > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "fetching service script ... "
@@ -165,7 +165,7 @@ wget "https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "becoming executable ... "
-chmod +x collectd
+chmod +x collectd > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "moving service script to /etc/init.d ... "
