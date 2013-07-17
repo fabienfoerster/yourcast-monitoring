@@ -149,7 +149,11 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exi
 
 echo -n "adding script to boot sequence ... "
 update-rc.d collectd defaults > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; 
+else 
+chkconfig --add collectd > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+fi
 
 echo -n "starting collectd ..."
 /opt/collectd/sbin/collectd > /dev/null 2> /tmp/collectd.log
