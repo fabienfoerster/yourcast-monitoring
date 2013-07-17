@@ -1,6 +1,6 @@
 #! /bin/sh
 # /etc/init.d/collectd
-# chkconfig: 123456
+# chkconfig: 123456 07 70
 # description: Collectd Daemon
 #
 # processname: collectd
