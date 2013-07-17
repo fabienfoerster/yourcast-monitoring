@@ -1,6 +1,10 @@
 #! /bin/sh
 # /etc/init.d/collectd
+# chkconfig: 123456
+# description: Collectd Daemon
 #
+# processname: collectd
+# pidfile: /var/run/collectd.pid
 
 # Some things that run always
 touch /var/lock/collectd > /dev/null 2> /dev/null
