@@ -153,8 +153,8 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exi
 
 echo "modifing configure values ... "
 
-sed -i "s/{{server_name}}/$server_name/" collectd-client.conf 
-sed -i "s/{{server_port}}/$server_port/" collectd-client.conf
+sed -i "s/{{server_name}}/$server_name/" collectd-server.conf 
+sed -i "s/{{server_port}}/$server_port/" collectd-server.conf
 
 echo -ne "replacing configure file ... "
 mv collectd-server.conf /opt/collectd/etc/collectd.conf > /dev/null 2> /tmp/collectd.log
