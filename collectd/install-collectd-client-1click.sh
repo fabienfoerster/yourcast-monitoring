@@ -68,13 +68,18 @@ fi
 echo "entering /tmp"
 cd /tmp 
 
-echo -ne "installing gcc and co ..."
-apt-get install build-essential > /dev/null 2> /tmp/collectd.log
-if [ "$?" = "0" ]; then echo "OK";
+echo -ne "installing needed dependencies ..."
+type apt-get >/dev/null 2>&1
+if [ "$?" = "0" ]
+then
+    apt-get install build-essential > /dev/null 2> /tmp/collectd.log
+    apt-get install python2.7 python-dev python-pip > /dev/null 2> /tmp/collectd.log
+    pip install pymongo > /dev/null 2> /tmp/collectd.log
 else
-yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
+    yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
+    yum install python > /dev/null 2> /tmp/collectd.log
+    yum install python-devel > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
-fi
 
 
 #Dependencies for the write_http plugin
@@ -133,6 +138,18 @@ sed -i "s/{{interval}}/$interval/" collectd-client.conf
 
 echo -ne "replacing configure file ... "
 mv collectd-client.conf /opt/collectd/etc/collectd.conf
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -ne "fetching mongodb.py ..."
+wget https://raw.github.com/fabienfoerster/yourcast-monitoring/master/collectd/config/mongodb.py > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -ne "create python module directory ..."
+mkdir -p /opt/collectd/share/collectd/python > /dev/null 2> /tmp/collectd.log
+if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
+
+echo -ne "moving mongodb.py to python module directory ..."
+mv mongodb.py /opt/collectd/share/collectd/python/mongodb.py > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -n "fetching service script ... "
