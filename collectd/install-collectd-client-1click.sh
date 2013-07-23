@@ -68,7 +68,7 @@ fi
 echo "entering /tmp"
 cd /tmp 
 
-echo -ne "installing needed dependencies ..."
+echo -ne "installing needed dependencies(can take a little while) ..."
 type apt-get >/dev/null 2>&1
 if [ "$?" = "0" ]
 then
