@@ -79,6 +79,8 @@ else
     yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
     yum install python > /dev/null 2> /tmp/collectd.log
     yum install python-devel > /dev/null 2> /tmp/collectd.log
+    easy_install pip > /dev/null 2> /tmp/collectd.log
+    pip install pymongo > /dev/null 2> /tmp/collectd.log
 fi
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
