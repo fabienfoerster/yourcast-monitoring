@@ -72,13 +72,13 @@ echo -ne "installing needed dependencies(can take a little while) ..."
 type apt-get >/dev/null 2>&1
 if [ "$?" = "0" ]
 then
-    apt-get install build-essential > /dev/null 2> /tmp/collectd.log
-    apt-get install python2.7 python-dev python-pip > /dev/null 2> /tmp/collectd.log
+    apt-get install -y build-essential > /dev/null 2> /tmp/collectd.log
+    apt-get install -y python2.7 python-dev python-pip > /dev/null 2> /tmp/collectd.log
     pip install pymongo > /dev/null 2> /tmp/collectd.log
 else
-    yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
-    yum install python > /dev/null 2> /tmp/collectd.log
-    yum install python-devel > /dev/null 2> /tmp/collectd.log
+    yum -y groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
+    yum -y install python > /dev/null 2> /tmp/collectd.log
+    yum -y install python-devel > /dev/null 2> /tmp/collectd.log
     easy_install pip > /dev/null 2> /tmp/collectd.log
     pip install pymongo > /dev/null 2> /tmp/collectd.log
 fi

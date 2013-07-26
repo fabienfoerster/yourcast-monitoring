@@ -9,18 +9,15 @@ fi
 
 usage() {
     echo "usage: $0 -j jdk_directory -s server_name -p server_port -i interval"
-    echo "-j jdk_directory : the path to your jdk"
     echo "-s server_name : the name of the server you are installing this"
     echo "-p server_port : the port of the server you want to listen for receiving the data"
 }
 
-dir_jdk=""
 server_name=""
 server_port=""
 
 while getopts ":hj:s:p:" option; do
     case "$option" in 
-        j) dir_jdk="$OPTARG" ;;
         s) server_name="$OPTARG" ;;
         p) server_port="$OPTARG" ;;
         :)  echo "Error: -$OPTARG requires an argument" 
@@ -36,12 +33,6 @@ while getopts ":hj:s:p:" option; do
         ;;
     esac
 done
-
-if [ ! -d "$dir_jdk" ]; then
-    echo "Error : the jdk_directory argument must be a directory"
-    usage
-    exit 1
-fi
 
 if [ -z "$server_name" ]; then
     echo "Error : the server_name argument must be specify"
@@ -60,10 +51,10 @@ echo "entering /tmp"
 cd /tmp 
 
 echo -ne "installing gcc and co ..."
-apt-get install build-essential > /dev/null 2> /tmp/collectd.log
+apt-get install -y build-essential > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK";
 else
-yum groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
+yum -y groupinstall “Development Tools” > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 fi
 
