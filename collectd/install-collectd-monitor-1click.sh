@@ -10,8 +10,8 @@ fi
 usage() {
     echo "usage: $0 -j jdk_directory -s server_name -p server_port -i interval"
     echo "-j jdk_directory : the path to your jdk"
-    echo "-s server_name : the name of the server you want to send the collected data"
-    echo "-p server_port : the port of the server you want to send the collected data"
+    echo "-s server_name : the name of the server you are installing this"
+    echo "-p server_port : the port of the server you want to listen for receiving the data"
 }
 
 dir_jdk=""
