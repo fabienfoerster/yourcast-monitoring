@@ -53,7 +53,7 @@ case "$1" in
     do_restart
     ;;
   *)
-    echo "Usage: /etc/init.d/blah {start|stop|restart}"
+    echo "Usage: /etc/init.d/collectd {start|stop|restart}"
     exit 1
     ;;
 esac
