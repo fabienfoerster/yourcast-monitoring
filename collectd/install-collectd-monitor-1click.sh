@@ -101,7 +101,7 @@ if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exi
 echo "installing collectd ..."
 
 echo -ne "fetching sources files from collectd.org ..."
-wget http://collectd.org/files/collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
+wget http://collectd.org/files/collectd-5.3.1.tar.bz2 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "decompressing files ..."
