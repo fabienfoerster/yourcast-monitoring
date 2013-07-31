@@ -8,7 +8,7 @@ fi
 
 
 usage() {
-    echo "usage: $0 -j jdk_directory -s server_name -p server_port -i interval"
+    echo "usage: $0 -s server_name -p server_port"
     echo "-s server_name : the name of the server you are installing this"
     echo "-p server_port : the port of the server you want to listen for receiving the data"
 }
@@ -105,11 +105,11 @@ wget http://collectd.org/files/collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collec
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo -ne "decompressing files ..."
-tar jxf collectd-5.3.0.tar.bz2 > /dev/null 2> /tmp/collectd.log
+tar jxf collectd-5.3.1.tar.bz2 > /dev/null 2> /tmp/collectd.log
 if [ "$?" = "0" ]; then echo "OK"; else echo "FAILURE";cat /tmp/collectd.log;exit 1; fi
 
 echo "entering collectd-x.y.z"
-cd collectd-5.3.0
+cd collectd-5.3.1
 
 echo -ne "configuring collectd(can take a while) ..."
 ./configure --with-java="$dir_jdk" > /dev/null 2> /tmp/collectd.log
