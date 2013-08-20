@@ -5,18 +5,27 @@ Exhaustive list of the collectd probe using in monitoring yourcast
 
 ###CPU
 
-system  system	derive	 	 	CPU time spent by the kernel in system activities
-user	user	derive	 	 	CPU time spent by normal programs and daemons
-nice	nice	derive	 	 	CPU time spent by nice(1)d programs
-idle	idle	derive	 	 	Idle CPU time
-iowait	iowait	derive	 	 	CPU time spent waiting for I/O operations to finish when there is nothing else to do.
-irq	irq	derive	 	 	CPU time spent handling interrupts
-softirq	softirq	derive	 	 	CPU time spent handling "batched" interrupts
-steal	steal	derive	 	 	The time that a virtual CPU had runnable tasks, but the virtual CPU itself was not running
-
+```
+cpu.average..user   #CPU time spent by normal programs and daemons
+cpu.average..system #CPU time spent by the kernel in system activities
+cpu.average..idle #Idle CPU time
+cpu.average..wait #CPU time spent waiting for I/O operations to finish when there is nothing else to do.
+cpu.average..interrupt 
+cpu.average..softirq #CPU time spent handling "batched" interrupts
+cpu.average..steal #The time that a virtual CPU had runnable tasks, but the virtual CPU itself was not running
+cpu.average..nice #CPU time spent by nice programs
+```
 
 ###Memory
 
+```
+memory...used 
+memory...free 
+memory...buffered
+memory...cached
+```
+
+###
 
 ###Interface
 
